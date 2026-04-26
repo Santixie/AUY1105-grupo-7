@@ -1,5 +1,4 @@
 # AUY1105-grupo-7
-Integrantes: Benjamin Santis - Jose Osorio - Katalina Inostroza 
 
 ## Descripción
 Repositorio del proyecto de Infraestructura como Código (IaC)
@@ -19,8 +18,9 @@ analizar la calidad y seguridad del código Terraform en AWS.
 └── README.md
 
 ## Integrantes
-- Nombre Apellido (usuario GitHub)
-- Nombre Apellido (usuario GitHub)
+- Benjamin Santis (@Santixie)
+- Jose Osorio (@Cosm09)
+- Katalina Inostroza (@katalinaino)
 
 ## Instrucciones de uso
 1. Clonar el repositorio
