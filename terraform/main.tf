@@ -62,7 +62,9 @@ resource "aws_instance" "main" {
   tags = {
     Name = "AUY1105-miapp-ec2"
   }
-}terraform {
+}
+
+terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
