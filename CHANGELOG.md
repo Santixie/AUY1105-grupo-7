@@ -10,7 +10,10 @@
 ## [1.1.0] - 2024-11-01
 ### Added
 - Código Terraform para infraestructura AWS
-- VPC, Subred, Security Group e instancia EC2
+- VPC con CIDR 10.1.0.0/16
+- Subred con máscara /24
+- Security Group con acceso SSH restringido a 10.1.0.0/16
+- Instancia EC2 Ubuntu 24.04 LTS tipo t2.micro
 
 ## [1.2.0] - 2024-11-01
 ### Added
@@ -18,6 +21,7 @@
 - Análisis estático con TFLint
 - Análisis de seguridad con Checkov
 - Validación con terraform validate
+- Workflow activado solo por pull request hacia main
 
 ## [1.3.0] - 2024-11-01
 ### Added
