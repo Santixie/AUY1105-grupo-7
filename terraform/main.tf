@@ -16,7 +16,8 @@ provider "aws" {
 resource "aws_vpc" "main" {
   cidr_block = "10.1.0.0/16"
   tags = {
-    Name = "AUY1105-miapp-vpc"
+    Name        = "AUY1105-miapp-vpc"
+    Environment = "dev"
   }
 }
 
@@ -25,7 +26,8 @@ resource "aws_subnet" "main" {
   vpc_id     = aws_vpc.main.id
   cidr_block = "10.1.1.0/24"
   tags = {
-    Name = "AUY1105-miapp-subnet"
+    Name        = "AUY1105-miapp-subnet"
+    Environment = "dev"
   }
 }
 
@@ -48,7 +50,8 @@ resource "aws_security_group" "main" {
   }
 
   tags = {
-    Name = "AUY1105-miapp-sg"
+    Name        = "AUY1105-miapp-sg"
+    Environment = "dev"
   }
 }
 
@@ -61,6 +64,7 @@ resource "aws_instance" "main" {
   vpc_security_group_ids = [aws_security_group.main.id]
 
   tags = {
-    Name = "AUY1105-miapp-ec2"
+    Name        = "AUY1105-miapp-ec2"
+    Environment = "dev"
   }
 }
