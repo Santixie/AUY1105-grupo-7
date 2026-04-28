@@ -35,6 +35,7 @@ jobs:
         uses: bridgecrewio/checkov-action@master
         with:
           directory: terraform
+          skip_check: CKV_AWS_135
 
   terraform-validate:
     name: Validación Terraform

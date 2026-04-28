@@ -1,12 +1,5 @@
 # Changelog
 
-## [1.4.0] - 2026-04-27
-### Fixed
-- Eliminado `soft_fail: true` en Checkov para que el pipeline falle ante vulnerabilidades de seguridad
-### Added
-- Archivo `.tflint.hcl` con plugin AWS y reglas de nomenclatura, documentación y versión requerida
-- Job `opa-validate` en el workflow: genera plan Terraform en JSON y ejecuta políticas OPA con Conftest
-
 ## [1.0.0] - 2024-11-01
 ### Added
 - Configuración inicial del repositorio
@@ -35,3 +28,27 @@
 - Políticas de seguridad con OPA
 - Política para bloquear SSH público
 - Política para restringir tipo de instancia a t2.micro
+
+## [1.4.0] - 2026-04-27
+### Fixed
+- Eliminado `soft_fail: true` en Checkov para que el pipeline falle ante vulnerabilidades de seguridad
+### Added
+- Archivo `.tflint.hcl` con plugin AWS y reglas de nomenclatura, documentación y versión requerida
+- Job `opa-validate` en el workflow: genera plan Terraform en JSON y ejecuta políticas OPA con Conftest
+
+
+## [1.5.0] - 2026-04-27
+### Fixed
+- Corregir vulnerabilidades detectadas por Checkov en main.tf
+- Agregar descripción al Security Group y sus reglas (CKV_AWS_23)
+- Restringir egress del Security Group a CIDR de la VPC (CKV_AWS_382)
+- Habilitar monitoreo detallado en EC2 (CKV_AWS_126)
+- Cifrar volumen EBS raíz de EC2 (CKV_AWS_8)
+- Forzar IMDSv2 en EC2 (CKV_AWS_79)
+- Agregar IAM Role e Instance Profile para EC2 (CKV2_AWS_41)
+- Agregar VPC Flow Logs con CloudWatch y rol IAM (CKV2_AWS_11)
+- Bloquear default security group de la VPC (CKV2_AWS_12)
+### Changed
+- Skip solo CKV_AWS_135 en Checkov: t2.micro no soporta EBS optimizado
+
+
