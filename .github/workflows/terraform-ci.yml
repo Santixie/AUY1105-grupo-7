@@ -51,27 +51,8 @@ jobs:
           tar xzf conftest_0.46.0_Linux_x86_64.tar.gz
           sudo mv conftest /usr/local/bin
 
-      - name: Instalar Terraform
-        uses: hashicorp/setup-terraform@v3
-
-      - name: Terraform Init
-        run: terraform init -backend=false
-        working-directory: ./terraform
-
-      - name: Generar Plan Terraform
-        run: terraform plan -out=tfplan.binary
-        working-directory: ./terraform
-        env:
-          AWS_ACCESS_KEY_ID: "fake"
-          AWS_SECRET_ACCESS_KEY: "fake"
-          AWS_DEFAULT_REGION: "us-east-1"
-
-      - name: Convertir Plan a JSON
-        run: terraform show -json tfplan.binary > tfplan.json
-        working-directory: ./terraform
-
-      - name: Ejecutar políticas OPA
-        run: conftest test --policy ../policies/ tfplan.json
+      - name: Ejecutar políticas OPA sobre código Terraform
+        run: conftest test --policy ../policies/ *.tf
         working-directory: ./terraform
 
   terraform-validate:
