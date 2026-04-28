@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0] - 2026-04-27
+### Fixed
+- Eliminado `soft_fail: true` en Checkov para que el pipeline falle ante vulnerabilidades de seguridad
+### Added
+- Archivo `.tflint.hcl` con plugin AWS y reglas de nomenclatura, documentación y versión requerida
+- Job `opa-validate` en el workflow: genera plan Terraform en JSON y ejecuta políticas OPA con Conftest
+
 ## [1.0.0] - 2024-11-01
 ### Added
 - Configuración inicial del repositorio

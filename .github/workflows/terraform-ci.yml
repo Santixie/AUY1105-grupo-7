@@ -35,7 +35,6 @@ jobs:
         uses: bridgecrewio/checkov-action@master
         with:
           directory: terraform
-          soft_fail: true
 
   terraform-validate:
     name: Validación Terraform
@@ -54,4 +53,50 @@ jobs:
 
       - name: Terraform Validate
         run: terraform validate
+        working-directory: ./terraform
+
+  opa-validate:
+    name: Validación Políticas OPA
+    runs-on: ubuntu-latest
+    needs: terraform-validate
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+
+      - name: Terraform Init
+        run: terraform init -backend=false
+        working-directory: ./terraform
+        env:
+          AWS_ACCESS_KEY_ID: mock
+          AWS_SECRET_ACCESS_KEY: mock
+          AWS_DEFAULT_REGION: us-east-1
+
+      - name: Generar plan Terraform
+        run: terraform plan -refresh=false -out=tfplan.binary
+        working-directory: ./terraform
+        env:
+          AWS_ACCESS_KEY_ID: mock
+          AWS_SECRET_ACCESS_KEY: mock
+          AWS_DEFAULT_REGION: us-east-1
+
+      - name: Exportar plan a JSON
+        run: terraform show -json tfplan.binary > tfplan.json
+        working-directory: ./terraform
+        env:
+          AWS_ACCESS_KEY_ID: mock
+          AWS_SECRET_ACCESS_KEY: mock
+          AWS_DEFAULT_REGION: us-east-1
+
+      - name: Instalar Conftest
+        run: |
+          curl -L https://github.com/open-policy-agent/conftest/releases/download/v0.56.0/conftest_0.56.0_Linux_x86_64.tar.gz | tar xz
+          sudo mv conftest /usr/local/bin/
+
+      - name: Ejecutar políticas OPA
+        run: conftest test tfplan.json --policy ../policies
         working-directory: ./terraform
