@@ -1,3 +1,5 @@
+# Esta política bloquea el acceso SSH público (0.0.0.0/0)
+# hacia instancias EC2 para evitar exposición innecesaria.
 package terraform.security
 
 deny[msg] {

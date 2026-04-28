@@ -1,3 +1,5 @@
+# Esta política restringe la creación de instancias EC2
+# solo al tipo t2.micro para control de costos.
 package terraform.security
 
 deny[msg] {
