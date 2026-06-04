@@ -8,6 +8,9 @@ jobs:
   tflint:
     name: Análisis Estático - TFLint
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        directory: [terraform, modules/vpc, modules/ec2]
     steps:
       - name: Checkout código
         uses: actions/checkout@v4
@@ -17,11 +20,11 @@ jobs:
 
       - name: Inicializar TFLint
         run: tflint --init
-        working-directory: ./terraform
+        working-directory: ./${{ matrix.directory }}
 
       - name: Ejecutar TFLint
         run: tflint
-        working-directory: ./terraform
+        working-directory: ./${{ matrix.directory }}
 
   checkov:
     name: Análisis de Seguridad - Checkov
@@ -31,10 +34,22 @@ jobs:
       - name: Checkout código
         uses: actions/checkout@v4
 
-      - name: Ejecutar Checkov
+      - name: Ejecutar Checkov sobre terraform principal
         uses: bridgecrewio/checkov-action@master
         with:
           directory: terraform
+          soft_fail: true
+
+      - name: Ejecutar Checkov sobre módulo VPC
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: modules/vpc
+          soft_fail: true
+
+      - name: Ejecutar Checkov sobre módulo EC2
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: modules/ec2
           soft_fail: true
 
   opa-policies:
