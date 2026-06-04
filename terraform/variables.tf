@@ -4,16 +4,10 @@ variable "region" {
   default     = "us-east-1"
 }
 
-variable "vpc_cidr" {
-  description = "Bloque CIDR para la VPC"
+variable "project_name" {
+  description = "Nombre del proyecto, usado para etiquetar los recursos"
   type        = string
-  default     = "10.1.0.0/16"
-}
-
-variable "subnet_cidr" {
-  description = "Bloque CIDR para la subred principal"
-  type        = string
-  default     = "10.1.1.0/24"
+  default     = "AUY1105-miapp"
 }
 
 variable "environment" {
@@ -22,16 +16,16 @@ variable "environment" {
   default     = "dev"
 }
 
-variable "project_name" {
-  description = "Nombre del proyecto, usado para etiquetar los recursos"
-  type        = string
-  default     = "AUY1105-miapp"
-}
-
-variable "ssh_ingress_cidr" {
-  description = "CIDR permitido para el acceso SSH entrante"
+variable "vpc_cidr" {
+  description = "Bloque CIDR para la VPC"
   type        = string
   default     = "10.1.0.0/16"
+}
+
+variable "subnet_cidrs" {
+  description = "Lista de bloques CIDR para las subnets"
+  type        = list(string)
+  default     = ["10.1.1.0/24"]
 }
 
 variable "ami_id" {
