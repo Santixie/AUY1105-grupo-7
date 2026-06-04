@@ -5,15 +5,31 @@ Repositorio del proyecto de Infraestructura como Código (IaC)
 para la asignatura AUY1105 - Infraestructura como código II.
 
 ## Objetivo
-Implementar un pipeline automatizado con GitHub Actions para
-analizar la calidad y seguridad del código Terraform en AWS.
+Implementar módulos reutilizables de Terraform para gestionar infraestructura en AWS, siguiendo buenas prácticas de codificación, documentación y versionado semántico.
 
 ## Estructura del repositorio
 ```
-├── terraform/        # Código de infraestructura
+├── terraform/            # Código principal que orquesta los módulos
+│   ├── main.tf
+│   ├── variables.tf
+│   ├── outputs.tf
+│   └── versions.tf
+├── modules/
+│   ├── vpc/              # Módulo de redes (VPC, subnet, security group)
+│   │   ├── main.tf
+│   │   ├── variables.tf
+│   │   ├── outputs.tf
+│   │   ├── versions.tf
+│   │   └── examples/
+│   └── ec2/              # Módulo de cómputo (instancia EC2)
+│       ├── main.tf
+│       ├── variables.tf
+│       ├── outputs.tf
+│       ├── versions.tf
+│       └── examples/
 ├── .github/
-│   └── workflows/    # GitHub Actions
-├── policies/         # Políticas OPA
+│   └── workflows/        # GitHub Actions
+├── policies/             # Políticas OPA
 ├── .gitignore
 ├── CHANGELOG.md
 └── README.md
@@ -24,52 +40,76 @@ analizar la calidad y seguridad del código Terraform en AWS.
 - Jose Osorio (@Cosm09)
 - Katalina Inostroza (@katalinaino)
 
+## Módulos
+
+### Módulo VPC (`modules/vpc`)
+Gestiona la creación de la red base en AWS:
+- VPC con bloque CIDR configurable
+- Subred dentro de la VPC
+- Security group con reglas de acceso SSH restringido
+
+**Outputs principales:** `vpc_id`, `subnet_ids`, `security_group_id`
+
+### Módulo EC2 (`modules/ec2`)
+Gestiona el despliegue de instancias de cómputo en AWS:
+- Instancia EC2 con AMI y tipo de instancia configurables
+- Asociación con subred y security group existentes
+
+**Outputs principales:** `instance_id`, `instance_ip`
+
 ## Instrucciones de uso
+
+### Prerrequisitos
+- Terraform >= 1.0.0
+- Credenciales de AWS configuradas (`aws configure`)
+
+### Despliegue
+
 1. Clonar el repositorio
-2. Instalar Terraform
-3. Ejecutar `terraform init` dentro de la carpeta `/terraform`
-4. Ejecutar `terraform plan` para previsualizar los cambios
-5. Ejecutar `terraform apply` para aprovisionar la infraestructura
+2. Ingresar a la carpeta `terraform/`
+3. Inicializar los módulos y proveedores:
+   ```bash
+   terraform init
+   ```
+4. Revisar los cambios antes de aplicar:
+   ```bash
+   terraform plan
+   ```
+5. Aplicar la infraestructura:
+   ```bash
+   terraform apply
+   ```
 
----
+### Variables configurables
 
-## Definición del código Terraform
+| Variable | Descripción | Valor por defecto |
+|---|---|---|
+| `region` | Región de AWS | `us-east-1` |
+| `vpc_cidr` | CIDR de la VPC | `10.1.0.0/16` |
+| `subnet_cidr` | CIDR de la subred | `10.1.1.0/24` |
+| `environment` | Entorno de despliegue | `dev` |
+| `project_name` | Nombre del proyecto | `AUY1105-miapp` |
+| `ssh_ingress_cidr` | CIDR con acceso SSH | `10.1.0.0/16` |
+| `ami_id` | ID de la AMI | `ami-0e86e20dae9224db8` |
+| `instance_type` | Tipo de instancia | `t2.micro` |
 
-El código Terraform se encuentra en la carpeta `/terraform` y define una infraestructura básica en AWS compuesta por red, seguridad y cómputo.
-
-### Proveedor
-Se utiliza el proveedor oficial de AWS (`hashicorp/aws`) en su versión mayor `~> 5.0`. La región se configura mediante la variable `var.region` (valor por defecto: `us-east-1`).
-
-### Variables (`variables.tf`)
-
-| Variable | Tipo | Valor por defecto | Descripción |
-|---|---|---|---|
-| `region` | string | `us-east-1` | Región de AWS donde se despliega la infraestructura |
-| `ami_id` | string | `ami-0e86e20dae9224db8` | ID de la AMI de Ubuntu 24.04 LTS |
-
-### Recursos (`main.tf`)
-
-#### `aws_vpc` — Red privada virtual
-Define una VPC con el bloque CIDR `10.1.0.0/16`, que actúa como red aislada donde se alojan todos los recursos de la infraestructura.
-
-#### `aws_subnet` — Subred
-Crea una subred dentro de la VPC con el bloque CIDR `10.1.1.0/24`. Contiene los recursos de cómputo de la aplicación.
-
-#### `aws_security_group` — Grupo de seguridad
-Controla el tráfico de red hacia y desde la instancia EC2:
-- **Ingress**: permite únicamente tráfico SSH (puerto 22) desde dentro de la VPC (`10.1.0.0/16`). No se permite acceso SSH público.
-- **Egress**: permite todo el tráfico saliente.
-
-#### `aws_instance` — Instancia EC2
-Define una máquina virtual con las siguientes características:
-- **Sistema operativo**: Ubuntu 24.04 LTS
-- **Tipo de instancia**: `t2.micro`
-- **Red**: desplegada en la subred definida anteriormente
-- **Seguridad**: asociada al security group que restringe el acceso SSH
-
-### Outputs (`outputs.tf`)
+### Outputs
 
 | Output | Descripción |
 |---|---|
 | `vpc_id` | ID de la VPC creada |
-| `ec2_id` | ID de la instancia EC2 creada |
+| `subnet_ids` | IDs de las subredes |
+| `instance_id` | ID de la instancia EC2 |
+| `instance_ip` | IP privada de la instancia EC2 |
+
+## Automatización (CI)
+
+El workflow `.github/workflows/terraform-ci.yml` se ejecuta en cada pull request hacia `main` y realiza:
+1. **TFLint** — análisis estático sobre `terraform/`, `modules/vpc` y `modules/ec2`
+2. **Checkov** — análisis de seguridad sobre los tres directorios anteriores
+3. **Conftest (OPA)** — validación de políticas sobre el código Terraform principal
+4. **terraform validate** — validación de sintaxis del código principal
+
+## Versionado
+
+Este proyecto sigue el estándar de [Versionado Semántico](https://semver.org/). Los módulos siguen su propio ciclo de versiones, documentado en el [CHANGELOG](./CHANGELOG.md).
