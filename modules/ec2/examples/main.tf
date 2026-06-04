@@ -9,7 +9,7 @@ module "ec2" {
   ami_id                 = "ami-0e86e20dae9224db8"
   instance_type          = "t2.micro"
   subnet_id              = "subnet-xxxxxxxxxxxxxxxxx"
-  vpc_security_group_ids = ["sg-xxxxxxxxxxxxxxxxx"]
+  security_group_ids = ["sg-xxxxxxxxxxxxxxxxx"]
   environment            = "dev"
   project_name           = "ejemplo-ec2"
 }
