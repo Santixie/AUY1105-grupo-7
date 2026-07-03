@@ -1,0 +1,48 @@
+# module.vpc.aws_security_group.this:
+resource "aws_security_group" "this" {
+    arn         = "arn:aws:ec2:us-east-1:381492193847:security-group/sg-0dbcde7ac47e9d869"
+    description = "Security group gestionado por el modulo vpc"
+    egress      = [
+        {
+            cidr_blocks      = [
+                "0.0.0.0/0",
+            ]
+            description      = "Permite todo el trafico saliente"
+            from_port        = 0
+            ipv6_cidr_blocks = []
+            prefix_list_ids  = []
+            protocol         = "-1"
+            security_groups  = []
+            self             = false
+            to_port          = 0
+        },
+    ]
+    id          = "sg-0dbcde7ac47e9d869"
+    ingress     = [
+        {
+            cidr_blocks      = [
+                "10.0.0.0/8",
+            ]
+            description      = "SSH restringido a redes internas"
+            from_port        = 22
+            ipv6_cidr_blocks = []
+            prefix_list_ids  = []
+            protocol         = "tcp"
+            security_groups  = []
+            self             = false
+            to_port          = 22
+        },
+    ]
+    name        = "AUY1105-miapp-sg"
+    name_prefix = [90mnull[0m[0m
+    owner_id    = "381492193847"
+    tags        = {
+        "Environment" = "dev"
+        "Name"        = "AUY1105-miapp-sg"
+    }
+    tags_all    = {
+        "Environment" = "dev"
+        "Name"        = "AUY1105-miapp-sg"
+    }
+    vpc_id      = "vpc-0968296cae8aaef31"
+}

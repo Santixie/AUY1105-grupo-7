@@ -1,0 +1,10 @@
+[0m[1mmodule.ec2.aws_instance.this: Importing from ID "i-06fa2c9273b21d547"...[0m
+[0m[1m[32mmodule.ec2.aws_instance.this: Import prepared![0m
+[0m[32m  Prepared aws_instance for import[0m
+[0m[1mmodule.ec2.aws_instance.this: Refreshing state... [id=i-06fa2c9273b21d547][0m
+[0m[32m
+Import successful!
+
+The resources that were imported are shown above. These resources are now in
+your Terraform state and will henceforth be managed by Terraform.
+[0m

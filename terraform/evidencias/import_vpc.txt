@@ -1,0 +1,10 @@
+[0m[1mmodule.vpc.aws_vpc.this: Importing from ID "vpc-0968296cae8aaef31"...[0m
+[0m[1m[32mmodule.vpc.aws_vpc.this: Import prepared![0m
+[0m[32m  Prepared aws_vpc for import[0m
+[0m[1mmodule.vpc.aws_vpc.this: Refreshing state... [id=vpc-0968296cae8aaef31][0m
+[0m[32m
+Import successful!
+
+The resources that were imported are shown above. These resources are now in
+your Terraform state and will henceforth be managed by Terraform.
+[0m

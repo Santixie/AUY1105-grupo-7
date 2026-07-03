@@ -1,0 +1,3 @@
+module.ec2.aws_instance.this
+module.vpc.aws_subnet.this[0]
+module.vpc.aws_vpc.this
