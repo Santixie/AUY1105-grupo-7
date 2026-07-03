@@ -1,0 +1,31 @@
+# module.vpc.aws_subnet.this[0]:
+resource "aws_subnet" "this" {
+    arn                                            = "arn:aws:ec2:us-east-1:381492193847:subnet/subnet-05d9832843f7ac51e"
+    assign_ipv6_address_on_creation                = false
+    availability_zone                              = "us-east-1b"
+    availability_zone_id                           = "use1-az1"
+    cidr_block                                     = "10.1.1.0/24"
+    customer_owned_ipv4_pool                       = [90mnull[0m[0m
+    enable_dns64                                   = false
+    enable_lni_at_device_index                     = 0
+    enable_resource_name_dns_a_record_on_launch    = false
+    enable_resource_name_dns_aaaa_record_on_launch = false
+    id                                             = "subnet-05d9832843f7ac51e"
+    ipv6_cidr_block                                = [90mnull[0m[0m
+    ipv6_cidr_block_association_id                 = [90mnull[0m[0m
+    ipv6_native                                    = false
+    map_customer_owned_ip_on_launch                = false
+    map_public_ip_on_launch                        = false
+    outpost_arn                                    = [90mnull[0m[0m
+    owner_id                                       = "381492193847"
+    private_dns_hostname_type_on_launch            = "ip-name"
+    tags                                           = {
+        "Environment" = "dev"
+        "Name"        = "AUY1105-miapp-subnet-1"
+    }
+    tags_all                                       = {
+        "Environment" = "dev"
+        "Name"        = "AUY1105-miapp-subnet-1"
+    }
+    vpc_id                                         = "vpc-0968296cae8aaef31"
+}

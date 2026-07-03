@@ -1,0 +1,10 @@
+[0m[1mmodule.vpc.aws_subnet.this[0]: Importing from ID "subnet-05d9832843f7ac51e"...[0m
+[0m[1m[32mmodule.vpc.aws_subnet.this[0]: Import prepared![0m
+[0m[32m  Prepared aws_subnet for import[0m
+[0m[1mmodule.vpc.aws_subnet.this[0]: Refreshing state... [id=subnet-05d9832843f7ac51e][0m
+[0m[32m
+Import successful!
+
+The resources that were imported are shown above. These resources are now in
+your Terraform state and will henceforth be managed by Terraform.
+[0m

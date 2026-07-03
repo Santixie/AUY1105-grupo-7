@@ -1,0 +1,52 @@
+{
+    "SecurityGroups": [
+        {
+            "GroupId": "sg-0dbcde7ac47e9d869",
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1",
+                    "UserIdGroupPairs": [],
+                    "IpRanges": [
+                        {
+                            "Description": "Permite todo el trafico saliente",
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": []
+                }
+            ],
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "AUY1105-miapp-sg"
+                },
+                {
+                    "Key": "Environment",
+                    "Value": "dev"
+                }
+            ],
+            "VpcId": "vpc-0968296cae8aaef31",
+            "SecurityGroupArn": "arn:aws:ec2:us-east-1:381492193847:security-group/sg-0dbcde7ac47e9d869",
+            "OwnerId": "381492193847",
+            "GroupName": "AUY1105-miapp-sg",
+            "Description": "Security group gestionado por el modulo vpc",
+            "IpPermissions": [
+                {
+                    "IpProtocol": "tcp",
+                    "FromPort": 22,
+                    "ToPort": 22,
+                    "UserIdGroupPairs": [],
+                    "IpRanges": [
+                        {
+                            "Description": "SSH restringido a redes internas",
+                            "CidrIp": "10.0.0.0/8"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": []
+                }
+            ]
+        }
+    ]
+}

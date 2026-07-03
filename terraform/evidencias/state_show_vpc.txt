@@ -1,0 +1,30 @@
+# module.vpc.aws_vpc.this:
+resource "aws_vpc" "this" {
+    arn                                  = "arn:aws:ec2:us-east-1:381492193847:vpc/vpc-0968296cae8aaef31"
+    assign_generated_ipv6_cidr_block     = false
+    cidr_block                           = "10.1.0.0/16"
+    default_network_acl_id               = "acl-02c81dff263d8b705"
+    default_route_table_id               = "rtb-03f8b011b6bf24a95"
+    default_security_group_id            = "sg-0f3791986400185f1"
+    dhcp_options_id                      = "dopt-02573fe50ee5c6323"
+    enable_dns_hostnames                 = true
+    enable_dns_support                   = true
+    enable_network_address_usage_metrics = false
+    id                                   = "vpc-0968296cae8aaef31"
+    instance_tenancy                     = "default"
+    ipv6_association_id                  = [90mnull[0m[0m
+    ipv6_cidr_block                      = [90mnull[0m[0m
+    ipv6_cidr_block_network_border_group = [90mnull[0m[0m
+    ipv6_ipam_pool_id                    = [90mnull[0m[0m
+    ipv6_netmask_length                  = 0
+    main_route_table_id                  = "rtb-03f8b011b6bf24a95"
+    owner_id                             = "381492193847"
+    tags                                 = {
+        "Environment" = "dev"
+        "Name"        = "AUY1105-miapp-vpc"
+    }
+    tags_all                             = {
+        "Environment" = "dev"
+        "Name"        = "AUY1105-miapp-vpc"
+    }
+}
