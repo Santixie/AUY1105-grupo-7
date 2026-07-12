@@ -39,26 +39,6 @@ variable "enable_dns_support" {
   default     = true
 }
 
-variable "ingress_rules" {
-  description = "Lista de reglas de ingreso para el security group"
-  type = list(object({
-    from_port   = number
-    to_port     = number
-    protocol    = string
-    cidr_blocks = list(string)
-    description = optional(string, "")
-  }))
-  default = [
-    {
-      from_port   = 22
-      to_port     = 22
-      protocol    = "tcp"
-      cidr_blocks = ["10.0.0.0/8"]
-      description = "SSH restringido a redes internas"
-    }
-  ]
-}
-
 variable "tags" {
   description = "Mapa de etiquetas adicionales para todos los recursos"
   type        = map(string)
