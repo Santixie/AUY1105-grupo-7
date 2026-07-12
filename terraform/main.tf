@@ -19,5 +19,5 @@ module "ec2" {
   ami_id             = var.ami_id
   instance_type      = var.instance_type
   subnet_id          = module.vpc.subnet_ids[0]
-  security_group_ids = ["sg-0dbcde7ac47e9d869"]
+  security_group_ids = [var.existing_security_group_id]
 }

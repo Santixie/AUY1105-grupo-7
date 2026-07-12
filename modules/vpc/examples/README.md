@@ -6,7 +6,6 @@ Este ejemplo muestra cómo usar el módulo `vpc` para crear una VPC con dos subn
 
 - 1 VPC con CIDR `10.10.0.0/16`
 - 2 Subnets (`10.10.1.0/24` y `10.10.2.0/24`)
-- 1 Security Group con reglas SSH y HTTP restringidas a la VPC
 
 ## Uso
 
