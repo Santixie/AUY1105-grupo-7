@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 module "vpc" {
-  source = "../modules/vpc"
+  source = "git::https://github.com/Santixie/AUY1105-grupo-7.git//modules/vpc?ref=modules/vpc/v2.0.0"
 
   project_name = var.project_name
   environment  = var.environment
@@ -12,7 +12,7 @@ module "vpc" {
 }
 
 module "ec2" {
-  source = "../modules/ec2"
+  source = "git::https://github.com/Santixie/AUY1105-grupo-7.git//modules/ec2?ref=modules/ec2/v1.0.0"
 
   project_name       = var.project_name
   environment        = var.environment
