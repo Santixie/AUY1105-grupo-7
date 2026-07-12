@@ -67,7 +67,7 @@ jobs:
           sudo mv conftest /usr/local/bin
 
       - name: Ejecutar políticas OPA sobre código Terraform
-        run: conftest test --policy ../policies/ *.tf
+        run: conftest test --policy ../policies/ --namespace terraform.security *.tf
         working-directory: ./terraform
 
   terraform-validate:

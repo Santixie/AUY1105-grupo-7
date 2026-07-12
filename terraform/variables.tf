@@ -37,7 +37,7 @@ variable "ami_id" {
 variable "instance_type" {
   description = "Tipo de instancia EC2"
   type        = string
-  default     = "t2.samll"
+  default     = "t2.micro"
 }
 
 variable "existing_security_group_id" {
