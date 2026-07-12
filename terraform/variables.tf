@@ -39,3 +39,9 @@ variable "instance_type" {
   type        = string
   default     = "t2.micro"
 }
+
+variable "existing_security_group_id" {
+  description = "ID del security group existente, gestionado fuera de Terraform tras el Escenario 3 de la EP3"
+  type        = string
+  default     = "sg-0dbcde7ac47e9d869"
+}
