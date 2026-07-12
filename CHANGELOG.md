@@ -33,17 +33,18 @@
 
 ## Módulo VPC
 
-### [v0.1.0] - 2024-11-15
-### Added
-- Estructura inicial del módulo VPC
-- Archivos main.tf, variables.tf, outputs.tf, versions.tf
-- Recursos: aws_vpc, aws_subnet, aws_security_group parametrizados
-
 ### [v1.0.0] - 2024-11-15
 ### Added
 - Módulo VPC estable y funcional
+- Recursos: aws_vpc, aws_subnet (múltiples vía for_each), aws_security_group
 - Carpeta examples/ con ejemplo de uso y README
-- Output security_group_id añadido
+- Outputs: vpc_id, subnet_ids, subnet_cidrs, security_group_id
+
+### [v2.0.0] - 2026-07-11
+### Removed
+- Recurso `aws_security_group` y su output `security_group_id`
+### Changed
+- BREAKING: el security group ahora se gestiona fuera de Terraform, referenciado vía variable `existing_security_group_id` en terraform/main.tf (ver Escenario 3, EP3)
 
 ---
 
